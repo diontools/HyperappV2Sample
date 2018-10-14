@@ -1,12 +1,4 @@
-import { h, app, DispatchType } from 'hyperapp/src/index.js';
-type Action<S, P = {}> = (state: S, props: P, ev: Event) => S | [S, JSX.Element | object];
-type EffectRunner<P> = (props: P, dispatch: DispatchType) => void;
-type Effect<Props, RunnerProps> = (props: Props) => {
-    [X in keyof RunnerProps]: RunnerProps[X];
-} & {
-    effect: EffectRunner<RunnerProps>
-};
-
+import { h, app, DispatchType, Effect, EffectRunner, Action } from 'hyperapp/src/index.js';
 
 interface DelayEffectProps {
     action: any;
