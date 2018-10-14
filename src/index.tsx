@@ -25,11 +25,10 @@ type MainStateType = typeof mainState;
 type MainAction<P = {}> = Action<MainStateType, P>;
 
 // Type check function
-function act<S>(state: S): any;
 function act<S>(action: Action<S, {}>): any;
 function act<S, P>(action: Action<S, P>, props: P): any;
 function act(...args: any[]) {
-    return args.length == 1 ? args[0] : args;
+    return args;
 }
 
 const IncrementBy: MainAction<{ num: number }> = (state, args) => ({ ...state, value: state.value + args.num });
@@ -49,7 +48,6 @@ app({
         <div>
             <button onClick={act(IncrementBy, { num: 5 })}>increment</button>
             <button onClick={act(Reset)}>reset</button>
-            <button onClick={act({ ...state, value: 0 })}>reset2</button>
             <button onClick={act(DelayIncrementBy, { num: 10, delay: 500 })}>delay increment</button>
             count: {state.value}
         </div>
