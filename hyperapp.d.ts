@@ -39,16 +39,14 @@ declare module "hyperapp/src/index.js" {
 
   export type DispatchType = (obj: Function, data?: any) => void;
 
+  export type SubscriptionsResult = object | [object] | [object, object] | [object, object, object];
+
   export function app<State>(
     props: {
       init: ActionResult<State>,
       view: (state: State) => VNode,
-      container: Element
+      container: Element,
+      subscriptions?: (state: State) => SubscriptionsResult,
     }
-  ): {
-      setState: (newState: State) => void,
-      dispatch: DispatchType,
-      eventProxy: (event: Event) => void,
-      render: () => void,
-    }
+  ): void
 }
