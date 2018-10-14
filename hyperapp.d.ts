@@ -46,6 +46,7 @@ declare module "hyperapp/src/index.js" {
       container: Element
     }
   ): {
+      setState: (newState: State) => void,
       dispatch: DispatchType
     }
 }
