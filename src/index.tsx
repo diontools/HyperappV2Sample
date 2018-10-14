@@ -1,10 +1,10 @@
 import { h, app, DispatchType } from 'hyperapp/src/index.js';
 type Action<S, P = {}> = (state: S, props: P, ev: Event) => S | [S, JSX.Element | object];
 type EffectRunner<P> = (props: P, dispatch: DispatchType) => void;
-type Effect<P> = (props: P) => {
-    [X in keyof P]: P[X];
+type Effect<Props, RunnerProps> = (props: Props) => {
+    [X in keyof RunnerProps]: RunnerProps[X];
 } & {
-    effect: EffectRunner<P>
+    effect: EffectRunner<RunnerProps>
 };
 
 
@@ -18,7 +18,7 @@ const delayEffect: EffectRunner<DelayEffectProps> = (props, dispatch) =>
     setTimeout(() => dispatch(props.action), props.interval);
 
 // Effect Constructor
-const delay: Effect<DelayEffectProps> = (props) => ({
+const delay: Effect<DelayEffectProps, DelayEffectProps> = (props) => ({
     effect: delayEffect,
     ...props,
 });
