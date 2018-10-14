@@ -39,18 +39,19 @@ const DelayIncrementBy: MainAction<{ num: number, delay: number }> = (state, arg
 ];
 
 
-app({
-    init: [
-        mainState,
-        delay({ interval: 1000, action: act(IncrementBy, { num: 2 }) })
-    ],
-    view: state => (
-        <div>
-            <button onClick={act(IncrementBy, { num: 5 })}>increment</button>
-            <button onClick={act(Reset)}>reset</button>
-            <button onClick={act(DelayIncrementBy, { num: 10, delay: 500 })}>delay increment</button>
-            count: {state.value}
-        </div>
-    ),
-    container: document.body,
-});
+const { setState, dispatch, eventProxy, render } =
+    app({
+        init: [
+            mainState,
+            delay({ interval: 1000, action: act(IncrementBy, { num: 2 }) })
+        ],
+        view: state => (
+            <div>
+                <button onClick={act(IncrementBy, { num: 5 })}>increment</button>
+                <button onClick={act(Reset)}>reset</button>
+                <button onClick={act(DelayIncrementBy, { num: 10, delay: 500 })}>delay increment</button>
+                count: {state.value}
+            </div>
+        ),
+        container: document.body,
+    });
