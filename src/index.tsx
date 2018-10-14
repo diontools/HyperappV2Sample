@@ -1,4 +1,4 @@
-import { h, app, DispatchType, Effect, EffectRunner, Action } from 'hyperapp/src/index.js';
+import { h, app, Action, Effect, EffectRunner } from 'hyperapp/src/index.js';
 
 interface DelayEffectProps {
     action: any;
