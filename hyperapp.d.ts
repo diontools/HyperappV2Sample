@@ -32,7 +32,7 @@ declare module "hyperapp/src/index.js" {
 
   export function app<State>(
     props: {
-      init: State,
+      init: State | [State, any],
       view: (state: State) => VNode,
       container: Element
     }
