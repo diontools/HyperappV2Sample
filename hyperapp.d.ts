@@ -28,7 +28,8 @@ declare module "hyperapp/src/index.js" {
     ...children: Array<Children | Children[]>
   ): VNode<Props>
 
-  export type Action<S, P = {}> = (state: S, props: P, ev: Event) => S | [S, JSX.Element | object];
+  export type ActionResult<S> = S | [S, object];
+  export type Action<S, P = {}> = (state: S, props: P, ev: Event) => ActionResult<S>;
   export type EffectRunner<P> = (props: P, dispatch: DispatchType) => void;
   export type Effect<Props, RunnerProps> = (props: Props) => {
     [X in keyof RunnerProps]: RunnerProps[X];
@@ -40,7 +41,7 @@ declare module "hyperapp/src/index.js" {
 
   export function app<State>(
     props: {
-      init: State | [State, any],
+      init: ActionResult<State>,
       view: (state: State) => VNode,
       container: Element
     }
