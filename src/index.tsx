@@ -78,7 +78,7 @@ app({
             <p>value: {state.value}</p>
             <p>
                 <input id="count" type="checkbox" checked={state.tickEnabled} onClick={act([SetTickEnabled, { enable: !state.tickEnabled }])}></input>
-                <label for="count">count: {state.count}</label>
+                <label for="count">tick: {state.count}</label>
             </p>
         </div>
     ),
