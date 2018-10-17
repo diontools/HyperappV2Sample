@@ -30,20 +30,22 @@ declare module "hyperapp/src/index.js" {
 
   export type ActionResult<S> = S | [S, object];
   export type Action<S, P = {}> = (state: S, props: P, ev: Event) => ActionResult<S>;
-  export type EffectRunner<P> = (props: P, dispatch: DispatchType) => void;
+  export type EffectRunner<P> = (props: P, dispatch: DispatchType<any, any>) => void;
   export type Effect<Props, RunnerProps> = (props: Props) => {
     [X in keyof RunnerProps]: RunnerProps[X];
   } & {
     effect: EffectRunner<RunnerProps>
   };
 
-  export type DispatchType = (obj: Function, data?: any) => void;
+  export type DispatchableType<S, P> = Action<S> | [Action<S, P>, P] | ActionResult<S>;
 
-  export type SubscriptionsResult = object | [object] | [object, object] | [object, object, object];
+  export type DispatchType<S, P> = (obj: DispatchableType<S, P>, data?: any) => void;
 
-  export function app<State>(
+  export type SubscriptionsResult = object | [object] | [object, object] | [object, object, object] | object[];
+
+  export function app<State, Props>(
     props: {
-      init: ActionResult<State>,
+      init: DispatchableType<State, Props>,
       view: (state: State) => VNode,
       container: Element,
       subscriptions?: (state: State) => SubscriptionsResult,
