@@ -17,7 +17,7 @@ const delay: Effect<DelayEffectProps, DelayEffectProps> = (props) => ({
 
 
 interface TickEffectProps {
-    action: DispatchableType<any, any>;
+    action: DispatchableType<any, any, any>;
     interval: number;
 }
 
@@ -41,10 +41,10 @@ const mainState = {
 }
 
 type MainStateType = typeof mainState;
-type MainAction<P = {}> = Action<MainStateType, P>;
+type MainAction<P = {}, D = {}> = Action<MainStateType, P, D>;
 
 // Type check function
-function act<S, P>(dispatchable: DispatchableType<S, P>): DispatchableType<S, P> {
+function act<S, P, D>(dispatchable: DispatchableType<S, P, D>): DispatchableType<S, P, D> {
     return dispatchable;
 }
 
@@ -55,7 +55,7 @@ const DelayIncrementBy: MainAction<{ num: number, delay: number }> = (state, arg
     delay({ interval: args.delay, action: act([IncrementBy, { num: args.num }]) }),
 ];
 
-const SetTickEnabled: MainAction<{ enable: boolean }> = (state, args, event) =>
+const SetTickEnabled: MainAction<{ enable: boolean }, Event> = (state, args, event) =>
     ({ ...state, tickEnabled: args.enable });
 
 const CountUp: MainAction<{ time: number }> = (state, args, ev) => { console.log(args, ev); return({ ...state, count: state.count + 1 })};

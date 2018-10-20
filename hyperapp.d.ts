@@ -28,7 +28,7 @@ declare module "hyperapp/src/index.js" {
     ...children: Array<Children | Children[]>
   ): VNode<Props>
   
-  export type EffectRunner<P> = (props: P, dispatch: DispatchType<any, any>) => void;
+  export type EffectRunner<P> = (props: P, dispatch: DispatchType<any, any, any>) => void;
   export type EffectObject<P> = {
     [X in keyof P]: P[X];
   } & {
@@ -38,9 +38,9 @@ declare module "hyperapp/src/index.js" {
   export type EffectType<P> = EffectObject<P> | boolean;
   
   export type ActionResult<S> = S | [S, object];
-  export type Action<S, P> = (state: S, props: P, ev: Event) => ActionResult<S>;
+  export type Action<S, P, D> = (state: S, props: P, data: D) => ActionResult<S>;
 
-  export type SubscriptionEffectRunner<P> = (props: P, dispatch: DispatchType<any, any>) => () => void;
+  export type SubscriptionEffectRunner<P> = (props: P, dispatch: DispatchType<any, any, any>) => () => void;
   export type SubscriptionObject<P> = {
     [X in keyof P]: P[X];
   } & {
@@ -49,15 +49,15 @@ declare module "hyperapp/src/index.js" {
   export type SubscriptionEffect<Props, RunnerProps> = (props: Props) => SubscriptionObject<RunnerProps>;
   export type SubscriptionType<P> = SubscriptionObject<P> | boolean;
 
-  export type DispatchableType<S, P> = Action<S, {}> | [Action<S, P>, P] | ActionResult<S>;
+  export type DispatchableType<S, P, D> = Action<S, {}, {}> | [Action<S, P, D>, P] | ActionResult<S>;
 
-  export type DispatchType<S, P> = (obj: DispatchableType<S, P>, data?: any) => void;
+  export type DispatchType<S, P, D> = (obj: DispatchableType<S, P, D>, data?: any) => void;
 
   export type SubscriptionsResult<P1> = void | SubscriptionType<P1> | SubscriptionType<P1>[];
 
   export function app<State, Props>(
     props: {
-      init: DispatchableType<State, Props>,
+      init: DispatchableType<State, Props, undefined>,
       view: (state: State) => VNode,
       container: Element,
       subscriptions?: (state: State) => SubscriptionsResult<any>,
