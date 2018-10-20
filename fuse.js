@@ -11,6 +11,5 @@ fuse.dev(); // launch http server
 fuse
   .bundle("app")
   .instructions(" > index.tsx")
-  .hmr()
   .watch();
 fuse.run();

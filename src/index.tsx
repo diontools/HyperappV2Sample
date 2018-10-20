@@ -58,7 +58,7 @@ const DelayIncrementBy: MainAction<{ num: number, delay: number }> = (state, arg
 const SetTickEnabled: MainAction<{ enable: boolean }> = (state, args, event) =>
     ({ ...state, tickEnabled: args.enable });
 
-const CountUp: MainAction<{ time: number }> = (state, args, ev) => { console.log(args, ev); return({ ...state, count: state.count + 1, countTime: new Date(args.time).toString() })};
+const CountUp: MainAction<{ time: number }> = (state, args, ev) => { console.log(args, ev); return({ ...state, count: state.count + 1 })};
 
 app({
     init: [
@@ -79,8 +79,7 @@ app({
     ),
     subscriptions: state => {
         return [
-            state.tickEnabled && tick({ action: act([CountUp, { time: 10000}]), interval: 100 }),
-            //<tick action={act(CountUp)} interval={100} />
+            state.tickEnabled && tick({ action: act([CountUp]), interval: 100 }),
         ];
     },
     container: document.body,
