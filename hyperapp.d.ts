@@ -37,7 +37,7 @@ declare module "hyperapp/src/index.js" {
   export type Effect<Props, RunnerProps> = (props: Props) => EffectObject<RunnerProps>;
   export type EffectType<P> = EffectObject<P> | boolean;
   
-  export type ActionResult<S> = S | [S, object];
+  export type ActionResult<S> = void | S | [S, object | object[]];
   export type Action<S, P, D> = (state: S, props: P, data: D) => ActionResult<S>;
 
   export type SubscriptionEffectRunner<P> = (props: P, dispatch: DispatchType<any, any, any>) => () => void;

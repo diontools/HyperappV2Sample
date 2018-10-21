@@ -50,7 +50,7 @@ function act<S, P, D>(dispatchable: DispatchableType<S, P, D>): DispatchableType
 
 const IncrementBy: MainAction<{ num: number }> = (state, args) => ({ ...state, value: state.value + args.num });
 const Reset: MainAction = state => ({ ...state, value: 0 });
-const DelayIncrementBy: MainAction<{ num: number, delay: number }> = (state, args) => [
+const DelayIncrementBy: MainAction<{ num: number, delay: number }> = (state, args, ev) => [
     state,
     delay({ interval: args.delay, action: act([IncrementBy, { num: args.num }]) }),
 ];
