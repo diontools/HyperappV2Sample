@@ -1,4 +1,4 @@
-import { VNode } from "hyperapp/src/index.js";
+import { VNode } from "hyperapp";
 
 declare global {
     namespace JSX {

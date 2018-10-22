@@ -6,7 +6,8 @@
       "sourceMap": true,
       "outDir": "./dist",
       "jsx": "react",
-      "jsxFactory": "h"
+      "jsxFactory": "h",
+      "baseUrl": "src"
     },
     "exclude": [
         "node_modules",

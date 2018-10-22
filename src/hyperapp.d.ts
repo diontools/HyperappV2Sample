@@ -1,4 +1,4 @@
-declare module "hyperapp/src/index.js" {
+declare module "hyperapp" {
   export type Children = VNode | string | number | null
 
   export enum VNodeType {
